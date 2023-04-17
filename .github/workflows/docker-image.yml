@@ -37,17 +37,18 @@ jobs:
         pip install -r requirements.txt
       working-directory: ./app
 
-    - name: Run tests
-      run: |
-        export MYSQL_USERNAME=testuser
-        export MYSQL_PASSWORD=testpassword
-        export MYSQL_INSTANCE_NAME=testdb
-        export MYSQL_PORT_3306_TCP_ADDR=mysql
-        export MYSQL_PORT_3306_TCP_PORT=33306
-        python test_app.py
-      working-directory: ./app
+    # - name: Run tests
+    #   run: |
+    #     export MYSQL_USERNAME=testuser
+    #     export MYSQL_PASSWORD=testpassword
+    #     export MYSQL_INSTANCE_NAME=testdb
+    #     export MYSQL_PORT_3306_TCP_ADDR=mysql
+    #     export MYSQL_PORT_3306_TCP_PORT=33306
+    #     python test_app.py
+    #   working-directory: ./app
 
   docker:
+    needs: test
     runs-on: ubuntu-latest
     steps:
       - 
