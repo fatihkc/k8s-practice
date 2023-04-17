@@ -6,13 +6,13 @@ module "network" {
 }
 
 module "cluster" {
-  source    = "weibeld/kubeadm/aws"
-  version   = "~> 0.2"
-  vpc_id    = module.network.vpc_id
-  subnet_id = module.network.subnet_id
-  cluster_name = "k8s-practice"
-  num_workers = 1
-  kubeconfig_file = "admin.conf"
+  source                 = "weibeld/kubeadm/aws"
+  version                = "~> 0.2"
+  vpc_id                 = module.network.vpc_id
+  subnet_id              = module.network.subnet_id
+  cluster_name           = "k8s-practice"
+  num_workers            = 1
+  kubeconfig_file        = "admin.conf"
   pod_network_cidr_block = "10.244.0.0/16"
 }
 

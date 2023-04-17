@@ -5,3 +5,4 @@ kube_config_server.yaml
 kube_config_workload.yaml
 .vscode
 __pycache__
+terraform/admin.conf
