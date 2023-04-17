@@ -16,8 +16,6 @@ jobs:
         env:
           MYSQL_ROOT_PASSWORD: rootpassword
           MYSQL_DATABASE: testdb
-          MYSQL_USER: testuser
-          MYSQL_PASSWORD: testpassword
         ports:
           - 3306:3306
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
@@ -39,8 +37,8 @@ jobs:
 
     - name: Run tests
       run: |
-        export MYSQL_USERNAME=testuser
-        export MYSQL_PASSWORD=testpassword
+        export MYSQL_USERNAME=root
+        export MYSQL_PASSWORD=rootpassword
         export MYSQL_INSTANCE_NAME=testdb
         export MYSQL_PORT_3306_TCP_ADDR=mysql
         export MYSQL_PORT_3306_TCP_PORT=3306
