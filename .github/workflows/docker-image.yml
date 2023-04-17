@@ -74,5 +74,22 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           context: app
+          load: true
+          tags: fatihkoc/app:latest
+      - 
+        name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: 'docker.io/fatihkoc/app:latest'
+          format: 'table'
+          exit-code: '1'
+          ignore-unfixed: true
+          vuln-type: 'os,library'
+          severity: 'CRITICAL,HIGH'      
+      -
+        name: Build and push
+        uses: docker/build-push-action@v3
+        with:
+          context: app
           push: true
           tags: fatihkoc/app:latest
