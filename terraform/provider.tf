@@ -4,5 +4,12 @@ provider "aws" {
 
 provider "kubernetes" {
   config_path    = "./admin.conf"
-  config_context = "my-context"
+  config_context = "kubernetes-admin@kubernetes"
+}
+
+provider "helm" {
+  kubernetes {
+    config_path    = "./admin.conf"
+    config_context = "kubernetes-admin@kubernetes"
+  }
 }
