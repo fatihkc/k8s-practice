@@ -42,11 +42,11 @@ jobs:
         export MYSQL_USERNAME=testuser
         export MYSQL_PASSWORD=testpassword
         export MYSQL_INSTANCE_NAME=testdb
-        export MYSQL_PORT_3306_TCP_ADDR=localhost
+        export MYSQL_PORT_3306_TCP_ADDR=mysql
         export MYSQL_PORT_3306_TCP_PORT=3306
         python test_app.py
       working-directory: ./app
-      
+
   docker:
     runs-on: ubuntu-latest
     steps:
