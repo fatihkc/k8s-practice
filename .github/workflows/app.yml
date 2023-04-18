@@ -3,14 +3,15 @@ name: App CI/CD
 on:
   push:
     branches:
-      - 'main'
+      - main
+#  workflow_dispatch:
 
 jobs:
   test:
     runs-on: ubuntu-latest
     services:
       mysql:
-        image: mysql:7
+        image: mysql:5.7
         env:
           MYSQL_ROOT_PASSWORD: rootpassword
           MYSQL_DATABASE: testdb
@@ -117,7 +118,7 @@ jobs:
 
     - uses: azure/setup-helm@v3
       with:
-        version: '3.8.0' # default is latest (stable)
+        version: '3.8.0'
       id: install
     
     - run: |
