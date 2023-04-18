@@ -105,4 +105,5 @@ jobs:
       id: install
     
     - run: |
-        helm --kubeconfig ${{ secrets.KUBECONFIG }} install app helm -f helm/values-dev.yml -n app
+        echo ${{ secrets.KUBECONFIG }}|base64 -d > kubeconfig
+        helm --kubeconfig kubeconfig install app helm -f helm/values-dev.yml -n app
