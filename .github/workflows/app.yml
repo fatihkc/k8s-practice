@@ -1,11 +1,11 @@
-name: Docker Image CI
+name: App CI/CD
 
 on:
   push:
     branches: [ "main" ]
     paths:
       - app
-  workflow_dispatch:
+#  workflow_dispatch:
 
 jobs:
   test:
@@ -93,3 +93,17 @@ jobs:
           context: app
           push: true
           tags: fatihkoc/app:latest
+
+  deployment:
+    needs: docker
+    runs-on: 'ubuntu-latest'
+    steps:
+    - uses: actions/checkout@v3
+
+    - uses: azure/setup-helm@v3
+      with:
+        version: '3.8.0' # default is latest (stable)
+      id: install
+    
+    - run: |
+        helm --kubeconfig ${{ secrets.KUBECONFIG }} install app ../helm -f ../helm/values-dev.yml -n app

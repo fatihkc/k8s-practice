@@ -1,7 +1,7 @@
 # kubectl create secret generic aws-secret \
 #     --namespace kube-system \
-#     --from-literal "key_id=AKIAV7XYFHRFB4KV7H4B" \
-#     --from-literal "access_key=Miy/gbFT/GFdnfSq/Wiz3K81MvFq7PkVRvKKw2Wt"
+#     --from-literal "key_id=${AWS_ACCESS_KEY_ID}" \
+#     --from-literal "access_key=${AWS_SECRET_ACCESS_KEY}"
 
 resource "null_resource" "storage-class" {
   depends_on = [module.cluster]
