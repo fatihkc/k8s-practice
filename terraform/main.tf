@@ -1,19 +1,18 @@
 module "network" {
-  source     = "weibeld/kubeadm/aws//modules/network"
-  version    = "~> 0.2"
+  source = "../modules/modules/network"
   cidr_block = "10.0.0.0/16"
   tags       = { "terraform-kubeadm:cluster" = module.cluster.cluster_name }
 }
 
 module "cluster" {
-  source                 = "weibeld/kubeadm/aws"
-  version                = "~> 0.2"
+  source = "../modules"
   vpc_id                 = module.network.vpc_id
   subnet_id              = module.network.subnet_id
   cluster_name           = "k8s-practice"
   num_workers            = 1
   kubeconfig_file        = "admin.conf"
   pod_network_cidr_block = "10.244.0.0/16"
+  master_instance_type  = "t3.medium"
 }
 
 resource "null_resource" "flannel" {

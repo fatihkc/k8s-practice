@@ -3,6 +3,7 @@ resource "null_resource" "initdb" {
 
   provisioner "local-exec" {
     command = <<-EOT
+    kubectl --kubeconfig admin.conf create ns app
     kubectl --kubeconfig admin.conf apply -f initdb.yml
     EOT
   }
@@ -11,6 +12,7 @@ resource "null_resource" "initdb" {
 resource "helm_release" "mysql" {
   depends_on = [
      null_resource.initdb,
+     null_resource.storage-class,
   ]
 
   name             = "mysql"
