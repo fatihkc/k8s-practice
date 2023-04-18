@@ -25,6 +25,19 @@ jobs:
     - name: Check out repository
       uses: actions/checkout@v3
 
+    - name: SonarCloud Scan
+      uses: SonarSource/sonarcloud-github-action@master
+      env:
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+    - name: SonarQube Quality Gate check
+      id: sonarqube-quality-gate-check
+      uses: sonarsource/sonarqube-quality-gate-action@master
+      # Force to fail step after specific time.
+      timeout-minutes: 5
+      env:
+       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
@@ -107,3 +120,8 @@ jobs:
     - run: |
         echo ${{ secrets.KUBECONFIG }}|base64 -d > kubeconfig
         helm --kubeconfig kubeconfig upgrade --install app helm -f helm/values-dev.yml -n app
+
+    - name: Cypress run
+      uses: cypress-io/github-action@v4
+      with:
+        working-directory: e2e
