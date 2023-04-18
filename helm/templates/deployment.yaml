@@ -29,15 +29,18 @@ spec:
               protocol: {{ .Values.deployment.container.protocol }} # Protocol to use for the port
           env:
           - name: MYSQL_USERNAME
-            value: {{ .Values.deployment.container.env.MYSQL_USERNAME }} # Environment variable to set for the container
+            value: "root" # Environment variable to set for the container
           - name: MYSQL_PASSWORD
-            value: {{ .Values.deployment.container.env.MYSQL_PASSWORD }} 
+            valueFrom:
+              secretKeyRef:
+                name: mysql
+                key: mysql-root-password
           - name: MYSQL_INSTANCE_NAME
-            value: {{ .Values.deployment.container.env.MYSQL_INSTANCE_NAME }}
+            value: "app"
           - name: MYSQL_PORT_3306_TCP_ADDR
-            value: {{ .Values.deployment.container.env.MYSQL_PORT_3306_TCP_ADDR }}
+            value: "mysql"
           - name: MYSQL_PORT_3306_TCP_PORT
-            value: {{ .Values.deployment.container.env.MYSQL_PORT_3306_TCP_PORT }}
+            value: "3306"
           resources:
             requests:
               cpu: {{ .Values.deployment.container.resources.requests.cpu }} # CPU to request for the container
@@ -59,7 +62,6 @@ spec:
             timeoutSeconds: {{ .Values.deployment.container.readinessProbe.timeoutSeconds }} # Timeout before readiness check
           securityContext:
             allowPrivilegeEscalation: false
-            readOnlyRootFilesystem: true
             runAsNonRoot: true
             runAsUser: 1000
             capabilities:

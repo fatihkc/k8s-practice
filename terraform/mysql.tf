@@ -1,10 +1,20 @@
+resource "null_resource" "initdb" {
+  depends_on = [module.cluster]
+
+  provisioner "local-exec" {
+    command = <<-EOT
+    kubectl --kubeconfig admin.conf apply -f initdb.yml
+    EOT
+  }
+}
+
 resource "helm_release" "mysql" {
   depends_on = [
-     null_resource.storage-class,
+     null_resource.initdb,
   ]
 
   name             = "mysql"
-  namespace        = "mysql"
+  namespace        = "app"
   repository       = "https://charts.bitnami.com/bitnami"
   chart            = "mysql"
   version          = var.mysql-version
@@ -12,6 +22,11 @@ resource "helm_release" "mysql" {
   atomic           = true
   set {
     name  = "persistence.storageClass"
-    value = "local-storage"
+    value = "ebs-gp3"
   }
+  set {
+    name  = "initdbScriptsConfigMap"
+    value = "init"
+  } 
 }
+

@@ -19,11 +19,10 @@ deployment:
         cpu: "200m"
         memory: "200Mi"
     env:
-      MYSQL_USERNAME: "MYSQL_USERNAME"
-      MYSQL_PASSWORD: "MYSQL_PASSWORD"
-      MYSQL_INSTANCE_NAME: "MYSQL_INSTANCE_NAME"
-      MYSQL_PORT_3306_TCP_ADDR: "MYSQL_PORT_3306_TCP_ADDR"
-      MYSQL_PORT_3306_TCP_PORT: "MYSQL_PORT_3306_TCP_PORT"
+      MYSQL_USERNAME: "root"
+      MYSQL_INSTANCE_NAME: "app"
+      MYSQL_PORT_3306_TCP_ADDR: "mysql"
+      MYSQL_PORT_3306_TCP_PORT: "3306"
     livenessProbe:
       path: "/"
       port: "3000"
@@ -36,9 +35,9 @@ deployment:
       timeoutSeconds: "5"
 
 service:
-  name: "webserver"
+  name: "app"
   selector:
-    name: "webserver"
+    name: "app"
   ports:
     protocol: "TCP"
     port: "3000"
