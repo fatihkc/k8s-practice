@@ -105,4 +105,4 @@ jobs:
       id: install
     
     - run: |
-        helm --kubeconfig ${{ secrets.KUBECONFIG }} install app ../helm -f ../helm/values-dev.yml -n app
+        helm --kubeconfig ${{ secrets.KUBECONFIG }} install app helm -f ../helm/values-dev.yml -n app
