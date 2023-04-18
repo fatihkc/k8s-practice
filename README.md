@@ -21,6 +21,10 @@ This is a repository for practicing kubernetes.
 -  Trivy
 -  Cypress
 
+## IMPORTANT
+
+Change values in terraform/variables.tf file. Also you need to create a aws-secret inside terraform/ebs.tf file. 
+
 ## Terraform
 
 Terraform folder contains terraform files for creating a kubernetes cluster on AWS. Change variables and run the following commands:
